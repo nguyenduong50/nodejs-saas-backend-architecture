@@ -1,72 +1,187 @@
 # Node.js SaaS Backend Architecture
 
-Production-grade SaaS backend built with TypeScript and Clean Architecture principles.
+Enterprise-grade SaaS backend system built with TypeScript and Clean Architecture principles.
 
-## Tech Stack
+This project demonstrates production-ready backend engineering with scalability, maintainability, and reliability as primary goals.
 
-- Node.js (TypeScript)
-- Express / Fastify
-- PostgreSQL
-- Redis
-- BullMQ
-- Docker
-- OpenAPI
-- Jest
+---
 
-## Architecture
+# 1. Overview
 
-This project follows Clean Architecture:
+This repository simulates a multi-tenant SaaS backend system designed for:
 
-- Domain layer (entities, business rules)
-- Application layer (use cases)
-- Infrastructure layer (DB, Redis, external services)
-- Interface layer (controllers, routes)
+- High availability
+- Horizontal scalability
+- Clear domain boundaries
+- Infrastructure independence
+- Testability
+- Operational observability
 
-## Key Features
+The architecture emphasizes long-term maintainability over rapid feature iteration.
 
-- Multi-tenant ready structure
+---
+
+# 2. Architecture Principles
+
+## Clean Architecture
+
+The system is structured into four main layers:
+
+1. **Domain**
+   - Entities
+   - Value objects
+   - Domain services
+   - Business rules
+
+2. **Application**
+   - Use cases
+   - DTOs
+   - Interfaces (ports)
+   - Transaction boundaries
+
+3. **Infrastructure**
+   - Database (PostgreSQL)
+   - Redis
+   - Message queue (BullMQ)
+   - External integrations
+
+4. **Interface / Delivery**
+   - REST controllers
+   - Middleware
+   - Validation
+   - API documentation
+
+Dependencies always point inward.
+
+---
+
+# 3. Core Capabilities
+
+## Multi-Tenant Support
+
+- Tenant isolation strategy
+- Context-aware request handling
+- Scoped data access layer
+
+## Authentication & Authorization
+
+- JWT access token
+- Refresh token rotation
 - Role-Based Access Control (RBAC)
-- Idempotency key support
-- Transaction management
-- Background jobs
-- Centralized error handling
-- Structured logging
-- Input validation (DTO pattern)
-- API versioning
+- Permission-based route guard
 
-## Performance Considerations
+## Transaction Management
 
-- Redis caching
+- Explicit transaction boundaries
+- Rollback strategy
+- Idempotency key implementation
+
+## Background Processing
+
+- BullMQ job queues
+- Retry with exponential backoff
+- Dead-letter queue support
+
+---
+
+# 4. Scalability Strategy
+
+## Horizontal Scaling
+
+- Stateless API layer
+- Externalized session storage (Redis)
+- Containerized deployment
+
+## Database Optimization
+
+- Proper indexing strategy
 - Connection pooling
-- Cursor pagination
-- Index optimization
+- Cursor-based pagination
+- Read-heavy caching via Redis
 
-## Reliability
+## Caching Strategy
 
-- Graceful shutdown
-- Retry strategy
-- Dead-letter queue
+- Cache-aside pattern
+- TTL-based invalidation
+- Hot key mitigation considerations
+
+---
+
+# 5. Reliability Engineering
+
+- Graceful shutdown handling
 - Health check endpoints
+- Centralized error handling
+- Structured logging (correlation ID support)
+- Timeout management
+- Retry strategy for transient failures
 
-## Testing
+---
 
-- Unit tests (domain + use cases)
-- Integration tests
-- Test containers (optional)
+# 6. Observability
 
-## Infrastructure
+- Structured JSON logging
+- Request tracing ID
+- Performance metrics ready for Prometheus
+- Error categorization
+
+---
+
+# 7. Security Considerations
+
+- Secure HTTP headers
+- Input validation at boundary layer
+- Password hashing (argon2)
+- Rate limiting
+- CSRF mitigation (if applicable)
+- Secure environment configuration
+
+---
+
+# 8. Testing Strategy
+
+- Unit tests (domain layer)
+- Integration tests (application layer)
+- Repository tests
+- Mock external services
+- Coverage enforcement
+
+---
+
+# 9. Infrastructure
 
 - Docker multi-stage build
-- docker-compose for local development
-- Environment separation
+- docker-compose local environment
+- Environment variable management
+- CI pipeline (lint + test + build)
 
-## Documentation
+Deployment-ready configuration for container orchestration platforms.
 
-- Architecture diagram
-- Sequence diagram
-- ERD
-- API documentation (Swagger)
+---
 
-## Goals
+# 10. Trade-offs
 
-Demonstrate production-ready backend architecture with scalability and maintainability in mind.
+- Chosen modular monolith over microservices for initial complexity control
+- Explicit transaction handling instead of ORM magic
+- Avoided premature abstraction in infrastructure layer
+- Prioritized clarity over excessive optimization
+
+---
+
+# 11. Future Improvements
+
+- Distributed tracing integration
+- Read replica support
+- API rate limiting per tenant
+- Automated load testing
+
+---
+
+# Objective
+
+Demonstrate senior-level backend engineering mindset with emphasis on:
+
+- Architectural boundaries
+- Scalability planning
+- Operational readiness
+- Long-term maintainability
